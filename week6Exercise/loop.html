@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Kodune Ülesanne</title>
+    <style type="text/css">
+        .active {
+            background: skyblue;
+            padding: 10px;
+        }
+    </style>
+    <script src="jquery-2.2.2.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            var activeItem;
+
+            makeFirstItemActive();
+            
+            $('#next').on('click', function() {
+                activeItem = $('.active');
+                activeItem.removeClass('active');
+                if (activeItem.is(':last-child')) {
+                    makeFirstItemActive();
+                } else {
+                    activeItem.next('li').addClass('active');
+                }
+            });
+
+            $('#prev').on('click', function() {
+                activeItem = $('.active');
+                activeItem.removeClass('active');
+
+                if (activeItem.is(':first-child')) {
+                    makeLastItemActive();
+                } else {
+                    activeItem.prev('li').addClass('active');
+                }
+            });
+        });
+
+        function makeFirstItemActive() {
+            $('li').first().addClass('active');
+        }
+
+        function makeLastItemActive() {
+            $('li').last().addClass('active');
+        }
+    </script>
+</head>
+<body>
+<button id="next">edasi</button>
+<button id="prev">tagasi</button>
+
+<ul>
+    <li>esimene</li>
+    <li>teine</li>
+    <li>kolmas</li>
+    <li>neljas</li>
+</ul>
+
+</body>
+</html>
