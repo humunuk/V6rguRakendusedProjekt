@@ -1,5 +1,4 @@
 <?php
-$pildid = ['nameless1.jpg','nameless2.jpg','nameless3.jpg','nameless4.jpg','nameless5.jpg','nameless6.jpg',];
 $i = 1;
 require_once('head.html');
 ?>
