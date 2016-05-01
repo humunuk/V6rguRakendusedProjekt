@@ -1,0 +1,76 @@
+Tabeli loomine:
+
+CREATE TABLE loomaaed (id INT AUTO_INCREMENT PRIMARY KEY, nimi VARCHAR(255), vanus INT, liik VARCHAR(255), puur INT);
+
+Tulemus:
+
+mysql> describe loomaaed;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nimi  | varchar(255) | YES  |     | NULL    |                |
+| vanus | int(11)      | YES  |     | NULL    |                |
+| liik  | varchar(255) | YES  |     | NULL    |                |
+| puur  | int(11)      | YES  |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+Andmete sisestamine (kuna id on AI, siis ei ole vaja teda eraldi sisestada):
+
+INSERT INTO loomaaed (nimi, vanus, liik, puur) VALUES ('Muki', 5, 'Tiiger', 2), ('Maki', 2, 'Elevant', 1), ('Meri', 7, 'Kotkas', 3), ('Mai', 10, 'Elevant', 1), ('Jorems', 2, 'Kotkas', 3);
+
+Tulemus:
+mysql> SELECT * FROM loomaaed;
++----+--------+-------+---------+------+
+| id | nimi   | vanus | liik    | puur |
++----+--------+-------+---------+------+
+|  1 | Muki   |     5 | Tiiger  |    2 |
+|  2 | Maki   |     2 | Elevant |    1 |
+|  3 | Meri   |     7 | Kotkas  |    3 |
+|  4 | Mai    |    10 | Elevant |    1 |
+|  5 | Jorems |     2 | Kotkas  |    3 |
++----+--------+-------+---------+------+
+5 rows in set (0.01 sec)
+
+Päringud:
+
+* Hankida kõigi mingis ühes kindlas puuris elavate loomade nimi ja puuri number
+
+SELECT nimi, puur FROM loomaaed WHERE puur = 3; (Kus puur on puuri number)
+
+Tulemus:
++--------+------+
+| nimi   | puur |
++--------+------+
+| Meri   |    3 |
+| Jorems |    3 |
++--------+------+
+2 rows in set (0.00 sec)
+
+* Hankida vanima ja noorima looma vanused
+SELECT min(vanus) as Noorim, max(vanus) as Vanim FROM loomaaed;
+Tulemus:
++--------+-------+
+| Noorim | Vanim |
++--------+-------+
+|      2 |    10 |
++--------+-------+
+1 row in set (0.00 sec)
+
+* Hankida puuri number koos selles elavate loomade arvuga
+
+SELECT puur, count(id) AS loomade_arv FROM loomaaed GROUP BY puur;
+Tulemus:
++------+-------------+
+| puur | loomade_arv |
++------+-------------+
+|    1 |           2 |
+|    2 |           1 |
+|    3 |           2 |
++------+-------------+
+3 rows in set (0.00 sec)
+
+* Suurendada kõiki tabelis olevaid vanuseid 1 aasta võrra
+
+UPDATE loomaaed SET vanus = vanus + 1;
